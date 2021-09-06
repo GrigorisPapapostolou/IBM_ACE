@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ComIbmCompute.msgnode="ComIbmCompute.msgnode" xmlns:ComIbmDatabase.msgnode="ComIbmDatabase.msgnode" xmlns:ComIbmFileInput.msgnode="ComIbmFileInput.msgnode" xmlns:ComIbmFileRead.msgnode="ComIbmFileRead.msgnode" xmlns:ComIbmSOAPAsyncRequest.msgnode="ComIbmSOAPAsyncRequest.msgnode" xmlns:ComIbmSOAPAsyncResponse.msgnode="ComIbmSOAPAsyncResponse.msgnode" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow"
+    xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" nsURI="postEligibility.subflow" nsPrefix="postEligibility.subflow">
+  <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1">
+    <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
+    <translation xmi:type="utility:TranslatableString" key="postEligibility" bundleName="postEligibility" pluginId="Gefyra_REST_API"/>
+    <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/Gefyra_REST_API/icons/full/obj16/postEligibility.gif"/>
+    <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/Gefyra_REST_API/icons/full/obj30/postEligibility.gif"/>
+    <composition>
+      <nodes xmi:type="eflow:FCMSource" xmi:id="InTerminal.Input_1" location="90,54">
+        <translation xmi:type="utility:TranslatableString" key="Input" bundleName="postEligibility" pluginId="Gefyra_REST_API"/>
+      </nodes>
+      <nodes xmi:type="eflow:FCMSink" xmi:id="OutTerminal.Output_1" location="484,210">
+        <translation xmi:type="utility:TranslatableString" key="Output" bundleName="postEligibility" pluginId="Gefyra_REST_API"/>
+      </nodes>
+      <nodes xmi:type="ComIbmFileRead.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="201,84" inputDirectory="C:\ACE_Output_Files\Gefyra_Applications" filenamePattern="Applications_*.csv" fileDispositionAction="moveToArchiveWithTimestamp" messageDomainProperty="DFDL" messageSetProperty="{Gefyra_DFDL_CSV}" messageTypeProperty="{}:Get_Applications">
+        <translation xmi:type="utility:ConstantString" string="File Read"/>
+      </nodes>
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="333,62" dataSource="GefyraDS" computeExpression="esql://routine/#Send_Applications.Main">
+        <translation xmi:type="utility:ConstantString" string="Send_Applications"/>
+      </nodes>
+      <nodes xmi:type="ComIbmSOAPAsyncRequest.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="502,32" asyncResponseCorrelator="REQ_ELIG" wsdlFileName="Gefyra_Msg_SetService.wsdl" selectedPortType="Gefyra_Msg_SetPortType" selectedBinding="Gefyra_Msg_SetSOAP_HTTP_Binding" selectedOperation="get_eligibility" selectedPort="Gefyra_SOAP_Port" targetNamespace="http://tempuri.org/gefyra" useHTTPTransport="true" webServiceURL="http://localhost:7800/gefyra" sslProtocol="TLS" useAsyncSocket="true">
+        <translation xmi:type="utility:ConstantString" string="SOAP Asynchronous Request"/>
+      </nodes>
+      <nodes xmi:type="ComIbmSOAPAsyncResponse.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="12,207" asyncRequestCorrelator="REQ_ELIG">
+        <translation xmi:type="utility:ConstantString" string="SOAP Asynchronous Response"/>
+      </nodes>
+      <nodes xmi:type="ComIbmDatabase.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="300,208" dataSource="GefyraDS" statement="esql://routine/#postEligibility_Database.Main">
+        <translation xmi:type="utility:ConstantString" string="Database"/>
+      </nodes>
+      <nodes xmi:type="ComIbmFileInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="105,414" inputDirectory="C:\ACE_Output_Files\Gefyra_Applications" filenamePattern="Applications_*.csv" processedFileAction="moveToArchiveWithTimestamp" messageDomainProperty="DFDL" messageSetProperty="{Gefyra_DFDL_CSV}" messageTypeProperty="{}:Get_Applications">
+        <translation xmi:type="utility:ConstantString" string="File Input"/>
+      </nodes>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_7" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_3" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_2" targetNode="FCMComposite_1_5" sourceNode="FCMComposite_1_4" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_4" targetNode="OutTerminal.Output_1" sourceNode="FCMComposite_1_5" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_9" targetNode="FCMComposite_1_1" sourceNode="InTerminal.Input_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+    </composition>
+    <propertyOrganizer/>
+    <stickyBoard/>
+  </eClassifiers>
+</ecore:EPackage>

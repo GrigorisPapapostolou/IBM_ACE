@@ -1,0 +1,17 @@
+
+
+DECLARE soapenv SHARED NAMESPACE 'http://schemas.xmlsoap.org/soap/envelope/';
+DECLARE gef SHARED NAMESPACE 'http://tempuri.org/gefyra';
+
+
+CREATE COMPUTE MODULE Get_Applications_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		SET OutputLocalEnvironment.Destination.SOAP.Request.Transport.HTTP.WebServiceURL = 'http://localhost:7800/gefyra';
+		SET OutputLocalEnvironment.Destination.SOAP.Request.Operation = 'get_applications';
+	
+		SET OutputRoot.SOAP.Body.gef:GET_APPLICATIONS.gef:SUB_DT = InputLocalEnvironment.HTTP.Input.QueryString.sub_dt ;
+		
+		RETURN TRUE;
+	END;
+END MODULE;

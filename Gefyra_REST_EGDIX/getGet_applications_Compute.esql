@@ -1,0 +1,29 @@
+
+
+CREATE COMPUTE MODULE getGet_applications_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		SET OutputRoot.Properties.MessageType = 'JSON';
+			
+		CREATE FIELD OutputRoot.JSON.Data.SET_APPLICATIONS IDENTITY(JSON.Array)SET_APPLICATIONS;
+		DECLARE ref_set_appl REFERENCE TO OutputRoot.JSON.Data.SET_APPLICATIONS;
+
+		DECLARE Applications ROW ; 
+		SET Applications.Results[] = SELECT R FROM Database.dbo.GET_APPLICATIONS_EGDIX AS R WHERE R.SUB_DT = InputLocalEnvironment.REST.Input.Parameters.sub_dt;
+		
+		DECLARE Res_Count INT CARDINALITY(Applications.Results[]);
+		DECLARE i INT 1;
+		
+		WHILE (i <= Res_Count) DO
+			CREATE FIELD ref_set_appl.APPLICATION[i];
+			DECLARE ref_appl REFERENCE TO ref_set_appl.APPLICATION[i];
+			
+			SET ref_appl.APL_NUM = Applications.Results[i].APL_NUM;
+			SET ref_appl.CID     = Applications.Results[i].CID;
+			SET ref_appl.SUB_DT  = Applications.Results[i].SUB_DT;
+			SET i= i +1;
+		END WHILE;
+		
+		RETURN TRUE;
+	END;
+END MODULE;

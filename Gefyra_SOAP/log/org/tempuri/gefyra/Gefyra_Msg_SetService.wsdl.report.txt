@@ -1,0 +1,27 @@
+
+
+Importing file: C:\Users\gpapapostolou\IBM\ACET11\workspace\Gefyra_Msg_Set\Gefyra_Msg_SetService.wsdl
+
+The WSDL import will proceed with bindings Gefyra_Msg_SetSOAP_HTTP_Binding.
+Creating wsdl schema document for file:///C:/Users/gpapapostolou/IBM/ACET11/workspace/Gefyra_Msg_Set/Gefyra_Msg_SetService.wsdl.
+Parsing wsdl binding {http://tempuri.org/gefyra}Gefyra_Msg_SetSOAP_HTTP_Binding.
+Parsing wsdl binding input get_eligibility.
+Parsing wsdl binding output get_eligibility.
+Parsing wsdl binding fault get_eligibility_Fault.
+Parsing wsdl binding input get_applications.
+Parsing wsdl binding output get_applications.
+Parsing wsdl binding fault get_applications_Fault.
+Processing doc style for operation get_eligibility.
+Processing doc style for operation get_applications.
+Populating WSDL schema Gefyra_Msg_SetService.xsd.
+Creating file Gefyra_Msg_SetService.xsd in the workspace.
+Creating file Gefyra_Msg_SetService_InlineSchema1.xsd in the workspace.
+Copying source WSDL Gefyra_Msg_SetService.wsdl to Gefyra_Msg_SetService.wsdl.
+
+Elapsed time processing this message definition file: 0.605 seconds
+Number of warnings for this message definition file: 0
+
+
+Number of files processed: 1
+
+

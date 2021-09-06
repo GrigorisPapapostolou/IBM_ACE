@@ -1,0 +1,69 @@
+
+
+CREATE COMPUTE MODULE Send_Applications
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		SET OutputLocalEnvironment.Destination.SOAP.Request.Transport.HTTP.WebServiceURL = 'http://localhost:7800/gefyra';
+		SET OutputLocalEnvironment.Destination.SOAP.Request.Operation = 'get_eligibility';
+		
+		SET OutputRoot.SOAP.Context.Namespace.(SOAP.NamespaceDecl)xmlns:soapenv=soapenv;		
+		SET OutputRoot.SOAP.Context.Namespace.(SOAP.NamespaceDecl)xmlns:gef=gef;
+		
+		-- get_elig --> gef:GET_ELIGIBILITY
+		-- lst_cust -->    gef:CUSTOMER  
+		
+		CREATE FIELD OutputRoot.SOAP.Body.gef:GET_ELIGIBILITY;
+		DECLARE get_elig REFERENCE TO OutputRoot.SOAP.Body.gef:GET_ELIGIBILITY;
+		
+		
+		DECLARE temp_cust ROW;
+		
+		DECLARE ref_apl REFERENCE TO InputRoot.DFDL.Get_Applications.[<];
+		
+		
+		WHILE LASTMOVE(ref_apl) DO
+			
+				CREATE LASTCHILD OF get_elig NAME 'gef:CUSTOMER';			
+	 			DECLARE lst_cust REFERENCE TO  get_elig.gef:CUSTOMER;
+				MOVE lst_cust TO get_elig.[<];
+				
+				SET temp_cust = PASSTHRU(
+	   						'SELECT DISTINCT R.CID      , 
+	   						                 R.BUCKET   , 
+	   						                 R.COL      , 
+	   						                 R.INV_DEP  , 
+	   						                 R.DBT_AMT 
+							 FROM dbo.CUSTOMERS_INFO AS R
+							 WHERE R.CID = ?' , FIELDVALUE(ref_apl.CID));
+							 
+				SET lst_cust.gef:APL_NUM = ref_apl.APL_NUM;
+				SET lst_cust.gef:CID     = temp_cust.CID;
+				SET lst_cust.gef:BUCKET  = temp_cust.BUCKET;
+				SET lst_cust.gef:COL     = temp_cust.COL;
+				SET lst_cust.gef:INV_DEP = temp_cust.INV_DEP;
+				SET lst_cust.gef:DBT_AMT = temp_cust.DBT_AMT;
+				
+			MOVE ref_apl PREVIOUSSIBLING ;	
+		
+		END WHILE ;
+		/*
+		DECLARE red_apl REFERENCE TO InputRoot.DFDL.Get_Applications.[>];
+		DECLARE CID CHARACTER;
+		SET CID = red_apl.CID;
+		
+	    SET temp_cust = PASSTHRU(
+	   						'SELECT DISTINCT R.CID      , 
+	   						                 R.BUCKET   , 
+	   						                 R.COL      , 
+	   						                 R.INV_DEP  , 
+	   						                 R.DBT_AMT 
+							 FROM dbo.CUSTOMERS_INFO AS R
+							 WHERE R.CID = ?' , FIELDVALUE(red_apl.CID));
+		*/					 
+							 
+		
+		 	
+			
+		RETURN TRUE;
+	END;
+END MODULE;

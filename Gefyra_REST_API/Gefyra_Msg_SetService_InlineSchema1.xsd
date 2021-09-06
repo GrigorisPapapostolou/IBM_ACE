@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://tempuri.org/gefyra" xmlns="http://tempuri.org/gefyra" xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" xmlns:mrm="http://tempuri.org/gefyra" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://tempuri.org/gefyra" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <xsd:element name="SUB_DT" type="xsd:string"/>
+      <xsd:complexType name="GET_APPLICATIONS">
+        <xsd:sequence>
+          <xsd:element ref="mrm:SUB_DT"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="APL_NUM" type="xsd:string"/>
+      <xsd:element name="BUCKET" type="xsd:string"/>
+      <xsd:element name="CID" type="xsd:string"/>
+      <xsd:element name="COL" type="xsd:string"/>
+      <xsd:element name="INV_DEP" type="xsd:string"/>
+      <xsd:element name="DBT_AMT" type="xsd:string"/>
+      <xsd:element name="IS_ELIG" type="xsd:string"/>
+      <xsd:element name="ERROR_MSG" type="xsd:string"/>
+      <xsd:element ibmSchExtn:docRoot="true" name="GET_APPLICATIONS" type="mrm:GET_APPLICATIONS"/>
+      <xsd:complexType name="APPLICATION">
+        <xsd:sequence>
+          <xsd:element ref="mrm:APL_NUM"/>
+          <xsd:element ref="mrm:CID"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="SET_APPLICATIONS">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1000" ref="mrm:APPLICATION"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="APPLICATION" type="mrm:APPLICATION"/>
+      <xsd:element ibmSchExtn:docRoot="true" name="SET_APPLICATIONS" type="mrm:SET_APPLICATIONS"/>
+      <xsd:complexType name="CUSTOMER">
+        <xsd:sequence>
+          <xsd:element ref="mrm:APL_NUM"/>
+          <xsd:element ref="mrm:CID"/>
+          <xsd:element ref="mrm:BUCKET"/>
+          <xsd:element ref="mrm:COL"/>
+          <xsd:element ref="mrm:INV_DEP"/>
+          <xsd:element ref="mrm:DBT_AMT"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="GET_ELIGIBILITY">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1000" ref="mrm:CUSTOMER"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="CUSTOMER" type="mrm:CUSTOMER"/>
+      <xsd:complexType name="APPL_ELIG">
+        <xsd:sequence>
+          <xsd:element ref="mrm:APL_NUM"/>
+          <xsd:element ref="mrm:CID"/>
+          <xsd:element ref="mrm:IS_ELIG"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element ibmSchExtn:docRoot="true" name="GET_ELIGIBILITY" type="mrm:GET_ELIGIBILITY"/>
+      <xsd:complexType name="SET_ELIGIBILITY">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1000" ref="mrm:APPL_ELIG"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="APPL_ELIG" type="mrm:APPL_ELIG"/>
+      <xsd:element ibmSchExtn:docRoot="true" name="SET_ELIGIBILITY" type="mrm:SET_ELIGIBILITY"/>
+      <xsd:complexType name="FAULT">
+        <xsd:sequence>
+          <xsd:element ref="mrm:ERROR_MSG"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element ibmSchExtn:docRoot="true" name="FAULT" type="mrm:FAULT"/>
+    </xsd:schema>

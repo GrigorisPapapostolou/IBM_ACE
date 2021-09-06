@@ -1,0 +1,35 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "title" : "Gefyra_REST_EGDIX",
+    "version" : "1.0.0",
+    "description" : "Gefyra_REST_EGDIX"
+  },
+  "paths" : {
+    "/get_applications" : {
+      "get" : {
+        "operationId" : "getGet_applications",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful.",
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        },
+        "produces" : [ "application/json" ],
+        "description" : "Retrieve get_applications",
+        "parameters" : [ {
+          "name" : "sub_dt",
+          "in" : "query",
+          "type" : "string",
+          "required" : true
+        } ]
+      }
+    }
+  },
+  "basePath" : "/gefyra_rest_egdix/",
+  "definitions" : { },
+  "schemes" : [ "http" ],
+  "host" : "grpc003166.atrema.deloitte.com:7080"
+}

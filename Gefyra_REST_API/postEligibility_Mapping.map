@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><mappingRoot xmlns="http://www.ibm.com/2008/ccl/Mapping" domainID="com.ibm.msl.mapping.xml" domainIDExtension="mb" mainMap="true" targetNamespace="default" version="8.0.5.0" xmlns:map="default">
+    <input path="mbsharedlib://Gefyra_DFDL_CSV/Get_Applications.xsd" var="var"/>
+    <input path="db:database(/gefyra.dbm,gefyra,db:schema-tables(dbo,CUSTOMERS_INFO))" var="gefyra"/>
+    <output path="/Gefyra_Msg_SetService_InlineSchema1.xsd"/>
+    <namespaces>
+        <namespace kind="supplement" prefix="out" uri="http://tempuri.org/gefyra"/>
+    </namespaces>
+    <generation engine="xquery"/>
+    <mappingDeclaration name="postEligibility_Mapping">
+        <input path="$var/mb:msg(Get_Applications,assembly,DFDL,Properties)" var="ComIbmMessageAssembly_Get_Applications"/>
+        <input path="$gefyra/db:select(fn:false(),ResultSet(dbo/CUSTOMERS_INFO/CID,dbo/CUSTOMERS_INFO/BUCKET,dbo/CUSTOMERS_INFO/COL,dbo/CUSTOMERS_INFO/INV_DEP,dbo/CUSTOMERS_INFO/DBT_AMT,dbo/CUSTOMERS_INFO/EFF_DT,dbo/CUSTOMERS_INFO/END_DT),db:where('dbo.CUSTOMERS_INFO.CID =  ? ','?'=$ComIbmMessageAssembly_Get_Applications/Get_Applications/Application/CID))" var="dbselect"/>
+        <output namespace="http://tempuri.org/gefyra" path="mb:msg(GET_ELIGIBILITY,assembly,XMLNSC,Properties)" var="ComIbmMessageAssembly_GET_ELIGIBILITY"/>
+        <move>
+            <input path="$ComIbmMessageAssembly_Get_Applications/Properties"/>
+            <output path="$ComIbmMessageAssembly_GET_ELIGIBILITY/Properties"/>
+        </move>
+        <select ref="dbselect">
+            <input path="$dbselect/ResultSet" var="ResultSet"/>
+            <input path="$ComIbmMessageAssembly_Get_Applications/Get_Applications/Application" var="Application"/>
+            <output path="$ComIbmMessageAssembly_GET_ELIGIBILITY/GET_ELIGIBILITY/CUSTOMER"/>
+            <move>
+                <input path="$ComIbmMessageAssembly_Get_Applications/Get_Applications/Application/APL_NUM"/>
+                <output path="APL_NUM"/>
+            </move>
+            <move>
+                <input path="$ResultSet/dbo/CUSTOMERS_INFO/CID"/>
+                <output path="CID"/>
+            </move>
+            <move>
+                <input path="$ResultSet/dbo/CUSTOMERS_INFO/BUCKET"/>
+                <output path="BUCKET"/>
+            </move>
+            <move>
+                <input path="$ResultSet/dbo/CUSTOMERS_INFO/COL"/>
+                <output path="COL"/>
+            </move>
+            <move>
+                <input path="$ResultSet/dbo/CUSTOMERS_INFO/INV_DEP"/>
+                <output path="INV_DEP"/>
+            </move>
+            <move>
+                <input path="$ResultSet/dbo/CUSTOMERS_INFO/DBT_AMT"/>
+                <output path="DBT_AMT"/>
+            </move>
+        </select>
+    </mappingDeclaration>
+</mappingRoot>

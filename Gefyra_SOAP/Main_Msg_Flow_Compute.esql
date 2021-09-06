@@ -1,0 +1,40 @@
+DECLARE soapenv SHARED NAMESPACE 'http://schemas.xmlsoap.org/soap/envelope/';
+DECLARE gef SHARED NAMESPACE 'http://tempuri.org/gefyra';		
+					
+CREATE COMPUTE MODULE Main_Msg_Flow_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		--SET OutputRoot = InputRoot;
+		DECLARE apl_num , cid , account CHARACTER;
+		
+		SET apl_num = InputRoot.XMLNSC.gef:GET_CON_ACCOUNT.gef:APL_NUM;
+		SET cid = InputRoot.XMLNSC.*:GET_CON_ACCOUNT.*:CID;
+		SET account = InputRoot.XMLNSC.*:GET_CON_ACCOUNT.[<];
+				
+		
+		DECLARE Elig_Cust ROW;
+
+		SET Elig_Cust.Results[] = PASSTHRU ('SELECT 1 AS Exist_Flg
+		                                     FROM dbo.ELIG_APL AS A
+		                                     WHERE A.IS_ELIG = ?
+		                                     AND A.APL_NUM = ?
+		                                     AND A.CID = ?' TO Database.GefyraDS VALUES ('Y', apl_num, cid));
+		  
+		
+		SET OutputRoot.SOAP.Context.Namespace.(SOAP.NamespaceDecl)xmlns:soapenv = soapenv;
+		SET OutputRoot.SOAP.Context.Namespace.(SOAP.NamespaceDecl)xmlns:gef = gef;
+		
+                                            
+		IF Elig_Cust.Results.Exist_Flg = 1 THEN
+			 INSERT INTO Database.dbo.ACCOUNTS_GEF ( APL_NUM, CID, ACCOUNT) VALUES ( apl_num, cid, account);
+			 
+			 SET OutputRoot.SOAP.Body.gef:SET_CON_ACCOUNT.gef:STATUS = '200';
+		ELSE   
+			 SET OutputRoot.SOAP.Body.gef:SET_CON_ACCOUNT.gef:STATUS = '404';
+		
+		END IF;
+		                              
+		
+		RETURN TRUE;
+	END;
+END MODULE;

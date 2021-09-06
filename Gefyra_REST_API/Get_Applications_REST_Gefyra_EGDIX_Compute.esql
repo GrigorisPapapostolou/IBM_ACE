@@ -1,0 +1,41 @@
+
+CREATE COMPUTE MODULE Get_Applications_REST_Gefyra_EGDIX_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		DECLARE strNow , File_Name  CHARACTER;
+		SET strNow = CAST(CURRENT_TIMESTAMP AS CHARACTER FORMAT 'yyyyMMdd'); 
+		SET File_Name = 'Applications_EGDIX_' || strNow || '.csv';
+	    --SET File_Directory = 'C:\ACE_Output_Files\Applications_EGDIX';
+		
+	
+		DECLARE ref_appl REFERENCE TO InputRoot.JSON.Data.SET_APPLICATIONS.[>];
+				
+
+		DECLARE Content CHAR ;
+		DECLARE  apl_num , cid CHARACTER;
+		
+		WHILE LASTMOVE(ref_appl) DO
+			
+				SET OutputLocalEnvironment.Destination.File.Name =  File_Name;
+				SET OutputLocalEnvironment.Destination.File.Directory = File_Directory;
+		
+				SET Content =  CAST(ref_appl.APL_NUM AS CHARACTER) || ',' || ref_appl.CID;
+				SET OutputRoot.BLOB.BLOB = CAST(Content AS BLOB CCSID 1208);
+		
+				PROPAGATE;
+			
+			MOVE ref_appl NEXTSIBLING ;	
+		
+		END WHILE ;
+		
+		
+		SET OutputLocalEnvironment.Destination.File.Name =  File_Name;
+		SET OutputLocalEnvironment.Destination.File.Directory = File_Directory;
+		PROPAGATE TO TERMINAL 1;
+		RETURN FALSE;
+				
+
+		RETURN TRUE;
+	END;
+END MODULE;

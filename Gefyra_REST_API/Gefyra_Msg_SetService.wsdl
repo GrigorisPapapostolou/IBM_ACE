@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" name="Gefyra_Msg_Set" targetNamespace="http://tempuri.org/gefyra" xmlns="http://tempuri.org/gefyra" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://tempuri.org/gefyra" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:documentation>
+    <wsdl:appinfo source="WMQI_APPINFO">
+      <MRWSDLAppInfo imported="true">
+        <generatedXSD location="Gefyra_Msg_SetService_InlineSchema1.xsd"/>
+        <binding hasEncoding="false" imported="true" name="Gefyra_Msg_SetSOAP_HTTP_Binding" originalBindingStyle="document"/>
+      </MRWSDLAppInfo>
+    </wsdl:appinfo>
+  </wsdl:documentation>
+  <wsdl:types>
+    
+          <xsd:schema targetNamespace="http://tempuri.org/gefyra" xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" xmlns:mrm="http://tempuri.org/gefyra">
+<xsd:include schemaLocation="Gefyra_Msg_SetService_InlineSchema1.xsd"/>
+    </xsd:schema>
+    </wsdl:types>
+  <wsdl:message name="get_eligibility_in">
+    <wsdl:part element="GET_ELIGIBILITY" name="GET_ELIGIBILITY"/>
+  </wsdl:message>
+  <wsdl:message name="get_eligibility_out">
+    <wsdl:part element="SET_ELIGIBILITY" name="SET_ELIGIBILITY"/>
+  </wsdl:message>
+  <wsdl:message name="get_eligibility_fault1">
+    <wsdl:part element="FAULT" name="FAULT"/>
+  </wsdl:message>
+  <wsdl:message name="get_applications_in">
+    <wsdl:part element="GET_APPLICATIONS" name="GET_APPLICATIONS"/>
+  </wsdl:message>
+  <wsdl:message name="get_applications_out">
+    <wsdl:part element="SET_APPLICATIONS" name="SET_APPLICATIONS"/>
+  </wsdl:message>
+  <wsdl:message name="get_applications_fault1">
+    <wsdl:part element="FAULT" name="FAULT"/>
+  </wsdl:message>
+  <wsdl:portType name="Gefyra_Msg_SetPortType">
+    <wsdl:operation name="get_eligibility">
+      <wsdl:input message="get_eligibility_in" name="get_eligibility_Input"/>
+      <wsdl:output message="get_eligibility_out" name="get_eligibility_Output"/>
+      <wsdl:fault message="get_eligibility_fault1" name="get_eligibility_Fault"/>
+    </wsdl:operation>
+    <wsdl:operation name="get_applications">
+      <wsdl:input message="get_applications_in" name="get_applications_Input"/>
+      <wsdl:output message="get_applications_out" name="get_applications_Output"/>
+      <wsdl:fault message="get_applications_fault1" name="get_applications_Fault"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="Gefyra_Msg_SetSOAP_HTTP_Binding" type="Gefyra_Msg_SetPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="get_eligibility">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="get_eligibility_Input">
+        <soap:body parts="GET_ELIGIBILITY" use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="get_eligibility_Output">
+        <soap:body parts="SET_ELIGIBILITY" use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="get_eligibility_Fault">
+        <soap:fault name="get_eligibility_Fault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="get_applications">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="get_applications_Input">
+        <soap:body parts="GET_APPLICATIONS" use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="get_applications_Output">
+        <soap:body parts="SET_APPLICATIONS" use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="get_applications_Fault">
+        <soap:fault name="get_applications_Fault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Gefyra_SOAP_Service">
+    <wsdl:port binding="Gefyra_Msg_SetSOAP_HTTP_Binding" name="Gefyra_SOAP_Port">
+      <soap:address location="http://localhost:7800/gefyra"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

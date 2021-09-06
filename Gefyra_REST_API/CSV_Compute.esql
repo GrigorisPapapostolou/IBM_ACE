@@ -1,0 +1,65 @@
+DECLARE File_Directory SHARED CHARACTER 'C:\ACE_Output_Files\Gefyra_Applications';
+
+CREATE COMPUTE MODULE CSV_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		DECLARE strNow , File_Name CHARACTER; 
+		SET strNow = CAST(CURRENT_TIMESTAMP AS CHARACTER FORMAT 'yyyyMMdd'); 
+		SET File_Name = 'Applications_AADE_' || strNow || '.csv';
+		--SET File_Directory = 'C:\ACE_Output_Files\Gefyra_Applications';
+		
+	
+		DECLARE ref_appl REFERENCE TO InputRoot.SOAP.*:Body.*:SET_APPLICATIONS.[<];
+				
+		--CREATE FIELD OutputRoot.DFDL.Get_Applications;
+		--DECLARE ref_get_applications REFERENCE TO OutputRoot.DFDL.Get_Applications;	
+		
+		
+		
+		DECLARE Content CHAR '';
+		
+		WHILE LASTMOVE(ref_appl) DO
+			
+				--SET OutputRoot.Properties.MessageSet  = 'Gefyra_DFDL_CSV';
+				--SET OutputRoot.Properties.MessageType = '{}:Get_Applications';
+				SET OutputLocalEnvironment.Destination.File.Name =  File_Name;
+				SET OutputLocalEnvironment.Destination.File.Directory = File_Directory;
+				
+				--CREATE LASTCHILD OF ref_get_applications NAME 'Application';
+	    		--DECLARE last_application REFERENCE TO ref_get_applications.Application;
+				--SET last_application.APL_NUM =  ref_appl.[>];
+				--SET last_application.CID = ref_appl.[<];
+		
+		
+				SET  Content = ref_appl.[>] || ',' || ref_appl.[<];
+				SET OutputRoot.BLOB.BLOB = CAST(Content AS BLOB CCSID 1208);
+		
+				PROPAGATE;
+			
+			MOVE ref_appl PREVIOUSSIBLING ;	
+		
+		END WHILE ;
+		
+		
+		SET OutputLocalEnvironment.Destination.File.Name =  File_Name;
+		SET OutputLocalEnvironment.Destination.File.Directory = File_Directory;
+		PROPAGATE TO TERMINAL 1;
+		RETURN FALSE;
+		
+		/*
+		SET OutputRoot.Properties.MessageSet = 'Gefyra_DFDL_CSV';
+		SET OutputRoot.Properties.MessageType = '{}:Get_Applications';
+		
+		CREATE FIELD OutputRoot.DFDL.Get_Applications;
+		DECLARE ref_get_applications REFERENCE TO OutputRoot.DFDL.Get_Applications;	
+		
+		CREATE LASTCHILD OF ref_get_applications NAME 'Application';
+	    DECLARE last_application REFERENCE TO ref_get_applications.Application;
+				
+		SET last_application.APL_NUM =  ref_set_appl.[<].[>];
+		SET last_application.CID = ref_set_appl.[<].[<];
+		*/
+		
+		--RETURN TRUE;
+	END;
+END MODULE;
