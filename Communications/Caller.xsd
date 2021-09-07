@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.example.org/Caller/" 
+	xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+	xmlns:tns="http://www.example.org/Caller/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+	
+	<xsd:element ibmSchExtn:docRoot="true" name="InputCaller">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="name" type="xsd:string" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element ibmSchExtn:docRoot="true" name="OutputCaller">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="status" type="xsd:string" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

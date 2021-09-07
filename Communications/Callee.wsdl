@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions 
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	name="Callee" 
+	targetNamespace="http://www.example.org/Callee/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+	xmlns:tns="http://www.example.org/Callee/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<wsdl:documentation>
+		<wsdl:appinfo source="WMQI_APPINFO">
+			<MRWSDLAppInfo imported="true">
+				<generatedXSD location="Callee.xsd" />
+				<binding hasEncoding="false" imported="true" name="CalleeSOAP" originalBindingStyle="document" />
+			</MRWSDLAppInfo>
+		</wsdl:appinfo>
+	</wsdl:documentation>
+
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://www.example.org/Callee/" xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions">
+			<xsd:include schemaLocation="Callee.xsd" />
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="CalleeOperationRequest">
+		<wsdl:part element="tns:InputCallee" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="CalleeOperationResponse">
+		<wsdl:part element="tns:OutputCallee" name="parameters" />
+	</wsdl:message>
+	<wsdl:portType name="Callee_pt">
+		<wsdl:operation name="CalleeOperation">
+			<wsdl:input message="tns:CalleeOperationRequest" />
+			<wsdl:output message="tns:CalleeOperationResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="CalleeSOAP" type="tns:Callee_pt">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="CalleeOperation">
+			<soap:operation soapAction="http://www.example.org/Callee/NewOperation" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="Callee">
+		<wsdl:port binding="tns:CalleeSOAP" name="CalleeSOAP">
+			<soap:address location="http://localhost:7801/CalleeReq" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

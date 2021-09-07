@@ -1,0 +1,22 @@
+
+
+Importing file: C:\Users\ichionis\IBM\ACET11\workspace\Communications\Caller.wsdl
+
+The WSDL import will proceed with bindings CallerSOAP.
+Creating wsdl schema document for file:///C:/Users/ichionis/IBM/ACET11/workspace/Communications/Caller.wsdl.
+Parsing wsdl binding {http://www.example.org/Caller/}CallerSOAP.
+Parsing wsdl binding input NewOperation.
+Parsing wsdl binding output NewOperation.
+Processing doc style for operation NewOperation.
+Populating WSDL schema Caller.xsd.
+Creating file Caller.xsd in the workspace.
+Creating file Caller_InlineSchema1.xsd in the workspace.
+Copying source WSDL Caller.wsdl to Caller.wsdl.
+
+Elapsed time processing this message definition file: 0.382 seconds
+Number of warnings for this message definition file: 0
+
+
+Number of files processed: 1
+
+

@@ -1,0 +1,22 @@
+
+
+Importing file: C:\Users\ichionis\IBM\ACET11\workspace\Communications\CalleeStep2.wsdl
+
+The WSDL import will proceed with bindings CalleeStep2SOAP.
+Creating wsdl schema document for file:///C:/Users/ichionis/IBM/ACET11/workspace/Communications/CalleeStep2.wsdl.
+Parsing wsdl binding {http://www.example.org/CalleeStep2/}CalleeStep2SOAP.
+Parsing wsdl binding input NewOperation.
+Parsing wsdl binding output NewOperation.
+Processing doc style for operation NewOperation.
+Populating WSDL schema CalleeStep2.xsd.
+Creating file CalleeStep2.xsd in the workspace.
+Creating file CalleeStep2_InlineSchema1.xsd in the workspace.
+Copying source WSDL CalleeStep2.wsdl to CalleeStep2.wsdl.
+
+Elapsed time processing this message definition file: 0.301 seconds
+Number of warnings for this message definition file: 0
+
+
+Number of files processed: 1
+
+
