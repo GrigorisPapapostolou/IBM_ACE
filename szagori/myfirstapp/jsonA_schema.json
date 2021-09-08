@@ -1,0 +1,19 @@
+{
+  "type": "object",
+  "properties": {
+    "Name": {
+      "type": "string"
+    },
+    "LastName": {
+      "type": "string"
+    },
+    "Address": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "Name",
+    "LastName",
+    "Address"
+  ]
+}

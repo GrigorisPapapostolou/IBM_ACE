@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><mappingRoot xmlns="http://www.ibm.com/2008/ccl/Mapping" domainID="com.ibm.msl.mapping.xml" domainIDExtension="mb" mainMap="true" targetNamespace="default" version="8.0.5.0" xmlns:map="default">
+    <input path="/NewWSDLFile_InlineSchema1.xsd"/>
+    <output path="/NewWSDLFile_InlineSchema1.xsd"/>
+    <namespaces>
+        <namespace kind="supplement" prefix="io" uri="http://www.example.org/NewWSDLFile/"/>
+    </namespaces>
+    <generation engine="xquery"/>
+    <mappingDeclaration name="Flow_1_soap_1_Mapping">
+        <input namespace="http://www.example.org/NewWSDLFile/" path="mb:msg(NewOperation,assembly,XMLNSC,Properties)" var="ComIbmMessageAssembly_NewOperation"/>
+        <output namespace="http://www.example.org/NewWSDLFile/" path="mb:msg(NewOperationResponse,assembly,XMLNSC,Properties)" var="ComIbmMessageAssembly_NewOperationResponse"/>
+        <move>
+            <input path="$ComIbmMessageAssembly_NewOperation/Properties"/>
+            <output path="$ComIbmMessageAssembly_NewOperationResponse/Properties"/>
+        </move>
+        <move>
+            <input path="$ComIbmMessageAssembly_NewOperation/NewOperation/in"/>
+            <output path="$ComIbmMessageAssembly_NewOperationResponse/NewOperationResponse/out"/>
+        </move>
+    </mappingDeclaration>
+</mappingRoot>

@@ -1,0 +1,22 @@
+
+
+Importing file: C:\Users\szagori\IBM\ACET11\workspace\DB_test\Main_msg_flow.wsdl
+
+The WSDL import will proceed with bindings Main_msg_flowSOAP.
+Creating wsdl schema document for file:///C:/Users/szagori/IBM/ACET11/workspace/DB_test/Main_msg_flow.wsdl.
+Parsing wsdl binding {http://www.example.org/Main_msg_flow/}Main_msg_flowSOAP.
+Parsing wsdl binding input NewOperation.
+Parsing wsdl binding output NewOperation.
+Processing doc style for operation NewOperation.
+Populating WSDL schema Main_msg_flow.xsd.
+Creating file Main_msg_flow.xsd in the workspace.
+Creating file Main_msg_flow_InlineSchema1.xsd in the workspace.
+Copying source WSDL Main_msg_flow.wsdl to Main_msg_flow.wsdl.
+
+Elapsed time processing this message definition file: 0.235 seconds
+Number of warnings for this message definition file: 0
+
+
+Number of files processed: 1
+
+

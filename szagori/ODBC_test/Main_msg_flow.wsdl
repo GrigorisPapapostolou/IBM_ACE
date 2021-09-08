@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" name="Main_msg_flow" targetNamespace="http://www.example.org/Main_msg_flow/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.example.org/Main_msg_flow/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:documentation>
+    <wsdl:appinfo source="WMQI_APPINFO">
+      <MRWSDLAppInfo imported="true">
+        <generatedXSD location="Main_msg_flow_InlineSchema1.xsd"/>
+        <binding hasEncoding="false" imported="true" name="Main_msg_flowSOAP" originalBindingStyle="document"/>
+      </MRWSDLAppInfo>
+    </wsdl:appinfo>
+  </wsdl:documentation>
+	<wsdl:types>
+		
+        	<xsd:schema targetNamespace="http://www.example.org/Main_msg_flow/" xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions">
+<xsd:include schemaLocation="Main_msg_flow_InlineSchema1.xsd"/>
+    </xsd:schema>
+    </wsdl:types>
+	<wsdl:message name="NewOperationRequest">
+		<wsdl:part element="tns:NewOperation" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="NewOperationResponse">
+		<wsdl:part element="tns:NewOperationResponse" name="parameters"/>
+	</wsdl:message>
+	<wsdl:portType name="Main_msg_flow">
+		<wsdl:operation name="NewOperation">
+			<wsdl:input message="tns:NewOperationRequest"/>
+			<wsdl:output message="tns:NewOperationResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="Main_msg_flowSOAP" type="tns:Main_msg_flow">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="NewOperation">
+			<soap:operation soapAction="http://www.example.org/Main_msg_flow/NewOperation"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="Main_msg_flow">
+		<wsdl:port binding="tns:Main_msg_flowSOAP" name="Main_msg_flowSOAP">
+			<soap:address location="http://www.example.org/"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
